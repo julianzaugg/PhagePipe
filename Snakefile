@@ -22,11 +22,6 @@ onstart:
     if busco_folder != "none" and not os.path.exists(busco_folder):
         sys.stderr.write("busco_folder does not point to a folder\n")
 
-# External : reads  > assemble
-# contigs > tool 1,2,3 ....
-# reads should be those used to assemble the contigs
-## If not provided, no abundance calculations, only annotation/tool prediction
-
 rule rename_contigs:
     input:
         fasta = config["fasta"]
@@ -60,7 +55,7 @@ rule run_vibrant:
     threads:
         config["max_threads"]
     shell:
-         "VIBRANT_run.py -i {input.fasta} -folder data/vibrant -t {threads}"
+         "VIBRANT_run.py -i {input.fasta} -folder data/vibrant -t {threads} && touch data/vibrant/done"
 
 rule run_virfinder:
     input:
@@ -72,4 +67,4 @@ rule run_virfinder:
     threads:
         config["max_threads"]
     shell:
-         "Rscript scripts/virfinder.R {input.fasta} data/virfinder.tsv"
+         "Rscript scripts/virfinder.R {input.fasta} data/virfinder.tsv && touch data/virfinder/done"
