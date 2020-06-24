@@ -32,7 +32,7 @@ rule rename_contigs:
     params:
         input_basename = os.path.basename(config["fasta"]).split(".")[0]
     shell:
-        "sed 's/>/>{params.input_basename}__/' {input.fasta} > {output}"
+        "sed 's/>/>{params.input_basename}__/' {input.fasta} | sed 's/\s.*//'  > {output}"
 
 rule run_virsorter:
     input:
