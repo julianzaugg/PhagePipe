@@ -29,8 +29,10 @@ rule rename_contigs:
         fasta = config["fasta"]
     output:
         "data/renamed_contigs.fasta"
+    params:
+        input_basename = os.path.basename(config["fasta"])
     shell:
-        "reduced_name=${{input.fasta}%.fasta} && sed 's/\s.*//' {input.fasta} | sed 's/>/>${reduced_name}__/' > {output}"
+        "sed 's/>/>${params.input_basename}__/' {input.fasta} > {output}"
 
 rule run_virsorter:
     input:
