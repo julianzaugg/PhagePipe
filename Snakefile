@@ -39,7 +39,7 @@ rule run_virsorter:
         fasta = "data/renamed_contigs.fasta",
         virsorter_data = config["virsorter_data"]
     output:
-        "data/virsorter/done"
+        "data/viral_predict/virsorter/done"
     conda:
         "envs/virsorter.yaml"
     threads:
@@ -53,7 +53,7 @@ rule run_vibrant:
         fasta = "data/renamed_contigs.fasta",
         vibrant_data = config["vibrant_data"]
     output:
-        "data/vibrant/done"
+        "data/viral_predict/vibrant/done"
     conda:
         "envs/vibrant.yaml"
     threads:
@@ -66,7 +66,7 @@ rule run_virfinder:
     input:
         fasta = "data/renamed_contigs.fasta"
     output:
-        "data/virfinder/done"
+        "data/viral_predict/virfinder/done"
     conda:
         "envs/virfinder.yaml"
     threads:
