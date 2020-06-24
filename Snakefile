@@ -1,5 +1,7 @@
 configfile: "config.yaml"
 
+workdir: config["workdir"]
+
 onsuccess:
     print("Workflow finished, no error")
 
