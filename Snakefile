@@ -30,7 +30,7 @@ rule rename_contigs:
     output:
         "data/renamed_contigs.fasta"
     shell:
-        "sed -i 's/>/>${{input.fasta}%%_*}_/' {input.fasta}"
+        "reduced_name=${{input.fasta}}; sed 's/\s.*//' {input.fasta} | sed 's/>/>${reduced_name}__/'"
 
 rule run_virsorter:
     input:
