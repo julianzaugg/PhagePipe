@@ -4,9 +4,9 @@ workdir:
     none
 long_reads:
     none
-short_reads1:
+short_reads_1:
     none
-short_reads2:
+short_reads_2:
     none
 max_threads:
     8
