@@ -81,4 +81,6 @@ rule viral_predict:
          virfinder_done = "data/viral_predict/virfinder/done",
          vibrant_done = "data/viral_predict/vibrant/done"
     output:
-          viral_predict_done = "data/viral_predict/done"
+          "data/viral_predict/done"
+    shell:
+         "touch {output}"
