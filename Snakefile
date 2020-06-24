@@ -68,3 +68,4 @@ rule run_virfinder:
         config["max_threads"]
     shell:
          "Rscript scripts/virfinder.R {input.fasta} data/virfinder.tsv && touch data/virfinder/done"
+
