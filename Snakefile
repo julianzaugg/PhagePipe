@@ -14,15 +14,15 @@ onstart:
     short_reads_1 = config["short_reads_1"].strip().split()
     short_reads_2 = config["short_reads_2"].strip().split()
     batch_file = config["batch_file"]
-    gtdbtk_folder = config["gtdbtk_folder"]
-    busco_folder = config["busco_folder"]
+    # gtdbtk_folder = config["gtdbtk_folder"]
+    # busco_folder = config["busco_folder"]
     import os
     if fasta[0] == "none" and batch_file == "none":
         sys.exit("Need at least one of fasta or batch_file")
-    if gtdbtk_folder != "none" and not os.path.exists(gtdbtk_folder):
-        sys.stderr.write("gtdbtk_folder does not point to a folder\n")
-    if busco_folder != "none" and not os.path.exists(busco_folder):
-        sys.stderr.write("busco_folder does not point to a folder\n")
+    # if gtdbtk_folder != "none" and not os.path.exists(gtdbtk_folder):
+    #     sys.stderr.write("gtdbtk_folder does not point to a folder\n")
+    # if busco_folder != "none" and not os.path.exists(busco_folder):
+    #     sys.stderr.write("busco_folder does not point to a folder\n")
 
 rule rename_contigs:
     input:
@@ -60,7 +60,7 @@ rule run_vibrant:
     threads:
         config["max_threads"]
     shell:
-         "VIBRANT_run.py -i {input.fasta} -folder data/viral_predict/vibrant -t {threads} && " \
+         "VIBRANT_run.py -i {input.fasta} -folder data/viral_predict/vibrant -t {threads} -d {input.vibrant_data} && " \
          "touch data/viral_predict/vibrant/done"
 
 rule run_virfinder:
