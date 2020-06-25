@@ -67,14 +67,18 @@ rule run_virfinder:
     input:
         fasta = "data/renamed_contigs.fasta"
     output:
-        "data/viral_predict/virfinder/done"
+        #"data/viral_predict/virfinder/done"
+        "data/viral_predict/virfinder/virfinder.tsv"
     conda:
         "envs/virfinder.yaml"
     threads:
         config["max_threads"]
-    shell:
-         "scripts/virfinder.R {input.fasta} data/viral_predict/virfinder/virfinder.tsv && " \
-         "touch {output}"
+    run:
+        self.snakefile = os.path.relpath(workflow.snakefile)
+        print(self.snakefile)
+    #script:
+         #"scripts/virfinder.R {input.fasta} data/viral_predict/virfinder/virfinder.tsv"
+         # "touch {output}"
 
 rule viral_predict:
     input:
