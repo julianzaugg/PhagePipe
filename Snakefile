@@ -2,11 +2,11 @@ import sys
 import os
 import re
 import tempfile
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(workflow.snakefile)),"scripts"))
+# sys.path.append(os.path.join(os.path.dirname(os.path.abspath(workflow.snakefile)),"scripts"))
 
 configfile: "config.yaml"
 
-workdir: config["workdir"]
+# workdir: config["workdir"]
 
 onsuccess:
     print("Workflow finished, no error")
