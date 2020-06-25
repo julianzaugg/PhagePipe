@@ -40,6 +40,9 @@ rule rename_contigs:
     shell:
         "sed 's/>/>{params.input_basename}__/' {input.fasta} | sed 's/\s.*//'  > {output}"
 
+# TODO rename_contigs_batch? Loop multiple files, change name and then combine into single fasta
+# then process single fasta
+
 rule run_virsorter:
     input:
         fasta = "data/renamed_contigs.fasta",
@@ -65,7 +68,10 @@ rule run_vibrant:
     threads:
         config["max_threads"]
     shell:
-         "VIBRANT_run.py -i {input.fasta} -folder data/viral_predict/vibrant -t {threads} -d {input.vibrant_data}"
+        "VIBRANT_run.py -i {input.fasta} -folder data/viral_predict/vibrant -t {threads} -d {input.vibrant_data} &&" \
+        "mv data/viral_predict/vibrant/VIBRANT_renamed_contigs/* data/viral_predict/vibrant/ && " \
+        "rm -r data/viral_predict/vibrant/VIBRANT_renamed_contigs"
+        # mv $VIBRANT_DIR/${i%.fasta}/VIBRANT_${i%.fasta}/* $VIBRANT_DIR/${i%.fasta}
 
 rule run_virfinder:
     input:
