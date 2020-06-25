@@ -2,11 +2,10 @@
 
 library(VirFinder)
 
-args = commandArgs(trailingOnly=TRUE)
+fasta <- commandArgs(TRUE)[1]
+outfile <- commandArgs(TRUE)[2]
 
-system(paste0("echo ", args[1], " ", args[2]))
-
-predResult <- VF.pred(args[1])
+predResult <- VF.pred(fasta)
 
 #### Sort sequences by p-value in ascending order
 predResult <- predResult[order(predResult$pvalue),]
@@ -20,4 +19,4 @@ predResult <- predResult[order(predResult$pvalue),]
 #predResult <- predResult[order(predResult$qvalue),]
 
 #### Write result to file
-write.table(x = predResult, file = args[2], sep = "\t", quote = F, row.names = F)
+write.table(x = predResult, file = outfile, sep = "\t", quote = F, row.names = F)

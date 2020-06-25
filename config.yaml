@@ -15,7 +15,7 @@ max_threads:
 virsorter_data:
     /srv/db/virsorter2
 vibrant_data:
-    /srv/db/vibrant/1.2.1
+    /srv/db/vibrant/1.2.1/databases
 gtdbtk_folder:
     /srv/db/gtdbtk/official/release89
 busco_folder:
