@@ -54,7 +54,7 @@ rule run_virsorter:
     threads:
         config["max_threads"]
     shell:
-        "virsorter run --seqfile {input.fasta} --working-dir data/viral_predict/virsorter " \
+        "virsorter run --rm-tmpdir --seqfile {input.fasta} --working-dir data/viral_predict/virsorter " \
         "--db-dir {input.virsorter_data} --jobs {threads} all"
 
 rule run_vibrant:
