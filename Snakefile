@@ -65,7 +65,8 @@ rule run_vibrant:
 
 rule run_virfinder:
     input:
-        fasta = "data/renamed_contigs.fasta"
+        fasta = "data/renamed_contigs.fasta",
+        snakefile = os.path.relpath(workflow.snakefile)
     output:
         #"data/viral_predict/virfinder/done"
         "data/viral_predict/virfinder/virfinder.tsv"
@@ -73,10 +74,8 @@ rule run_virfinder:
         "envs/virfinder.yaml"
     threads:
         config["max_threads"]
-    run:
-        self.snakefile = os.path.relpath(workflow.snakefile)
-        print(self.snakefile)
-    #script:
+    script:
+        "echo {input.snakefile}"
          #"scripts/virfinder.R {input.fasta} data/viral_predict/virfinder/virfinder.tsv"
          # "touch {output}"
 
