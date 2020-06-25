@@ -47,7 +47,7 @@ rule run_virsorter:
     shell:
         "virsorter run --seqfile {input.fasta} --working-dir data/viral_predict/virsorter " \
         "--db-dir {input.virsorter_data} --jobs {threads} all && " \
-        "touch data/viral_predict/virsorter/done"
+        "touch {output}"
 
 rule run_vibrant:
     input:
@@ -61,7 +61,7 @@ rule run_vibrant:
         config["max_threads"]
     shell:
          "VIBRANT_run.py -i {input.fasta} -folder data/viral_predict/vibrant -t {threads} -d {input.vibrant_data} && " \
-         "touch data/viral_predict/vibrant/done"
+         "touch {output}"
 
 rule run_virfinder:
     input:
@@ -74,7 +74,7 @@ rule run_virfinder:
         config["max_threads"]
     shell:
          "Rscript scripts/virfinder.R {input.fasta} data/viral_predict/virfinder/virfinder.tsv && " \
-         "touch data/viral_predict/virfinder/done"
+         "touch {output}"
 
 rule viral_predict:
     input:
