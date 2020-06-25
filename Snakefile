@@ -72,7 +72,7 @@ rule run_virfinder:
         "envs/virfinder.yaml"
     threads:
         config["max_threads"]
-    script:
+    shell:
          "Rscript --vanilla scripts/virfinder.R {input.fasta} data/viral_predict/virfinder/virfinder.tsv &&" \
          "touch {output}"
 
