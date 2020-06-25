@@ -45,42 +45,39 @@ rule run_virsorter:
         fasta = "data/renamed_contigs.fasta",
         virsorter_data = config["virsorter_data"]
     output:
-        "data/viral_predict/virsorter/done"
+        touch("data/viral_predict/virsorter/done")
     conda:
         "envs/virsorter.yaml"
     threads:
         config["max_threads"]
     shell:
         "virsorter run --seqfile {input.fasta} --working-dir data/viral_predict/virsorter " \
-        "--db-dir {input.virsorter_data} --jobs {threads} all && " \
-        "touch {output}"
+        "--db-dir {input.virsorter_data} --jobs {threads} all"
 
 rule run_vibrant:
     input:
         fasta = "data/renamed_contigs.fasta",
         vibrant_data = config["vibrant_data"]
     output:
-        "data/viral_predict/vibrant/done"
+        touch("data/viral_predict/vibrant/done")
     conda:
         "envs/vibrant.yaml"
     threads:
         config["max_threads"]
     shell:
-         "VIBRANT_run.py -i {input.fasta} -folder data/viral_predict/vibrant -t {threads} -d {input.vibrant_data} && " \
-         "touch {output}"
+         "VIBRANT_run.py -i {input.fasta} -folder data/viral_predict/vibrant -t {threads} -d {input.vibrant_data}"
 
 rule run_virfinder:
     input:
         fasta = "data/renamed_contigs.fasta"
     output:
-        "data/viral_predict/virfinder/done"
+        touch("data/viral_predict/virfinder/done")
     conda:
         "envs/virfinder.yaml"
     threads:
         config["max_threads"]
     shell:
-         "Rscript --vanilla scripts/virfinder.R {input.fasta} data/viral_predict/virfinder/virfinder.tsv &&" \
-         "touch {output}"
+         "Rscript --vanilla scripts/virfinder.R {input.fasta} data/viral_predict/virfinder/virfinder.tsv"
 
 rule viral_predict:
     input:
@@ -88,6 +85,4 @@ rule viral_predict:
          virfinder_done = "data/viral_predict/virfinder/done",
          vibrant_done = "data/viral_predict/vibrant/done"
     output:
-          "data/viral_predict/done"
-    shell:
-         "touch {output}"
+          touch("data/viral_predict/done")
