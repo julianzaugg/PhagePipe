@@ -46,7 +46,7 @@ rule run_virsorter:
         config["max_threads"]
     shell:
         "virsorter run -f {input.fasta} --working-dir data/viral_predict/virsorter --db-dir {input.virsorter_data} " \
-        "--jobs {threads} && touch data/viral_predict/virsorter/done"
+        "--jobs {threads} all && touch data/viral_predict/virsorter/done"
 
 rule run_vibrant:
     input:
