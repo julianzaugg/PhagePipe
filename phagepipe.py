@@ -16,12 +16,24 @@ def cli(obj):
     PhagePipe
     """
 
+def get_snakefile(f="Snakefile"):
+    sf = os.path.join(os.path.dirname(os.path.abspath(__file__)), f)
+    if not os.path.exists(sf):
+        sys.exit("Unable to locate the Snakemake workflow file; tried %s" % sf)
+    return sf
+
+
 @cli.command(
     'run',
     context_settings=dict(ignore_unknown_options=True),
-    short_help='run main workflow'
+    short_help='run'
 )
-
+@click.option('-w',
+    '--working-dir',
+    type=click.Path(dir_okay=True,writable=True,resolve_path=True),
+    help='Output directory',
+    default='.'
+)
 @click.option('-i',
     '--fasta',
     required=True,
@@ -39,12 +51,11 @@ def cli(obj):
 @click.option(
     '-t',
     '--threads',
-    default=multiprocessing.cpu_count(),
+    default= 1, #multiprocessing.cpu_count(),
     type=int,
     show_default=True,
-    help='max # of jobs allowed in parallel.',
+    help='Max number of threads.',
 )
-
 
 @click.argument(
     'snakemake_args',
