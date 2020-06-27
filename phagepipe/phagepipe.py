@@ -6,11 +6,16 @@ import glob
 import shutil
 import multiprocessing
 import click
+from phagepipe import __version__
+import argparse
+import snakemake
+import tempfile
+import setuptools
 
 
 @click.group(context_settings=dict(help_option_names=["-h", "--help"]))
-# @click.version_option(__version__)
-# @click.pass_context
+@click.version_option(__version__)
+@click.pass_context
 def cli(obj):
     """
     PhagePipe
@@ -21,7 +26,6 @@ def get_snakefile(f="Snakefile"):
     if not os.path.exists(sf):
         sys.exit("Unable to locate the Snakemake workflow file; tried %s" % sf)
     return sf
-
 
 @cli.command(
     'run',
